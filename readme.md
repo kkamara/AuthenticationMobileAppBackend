@@ -2,7 +2,7 @@
 
 # Authentication Mobile App Backend [![API](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml)
 
-(02-Sep-2026) A Laravel 13.x auth API for www.github.com/kkamara/AuthenticationMobileApp .
+(02-Sep-2026) A Laravel 13.x Docker auth API for www.github.com/kkamara/AuthenticationMobileApp .
 
 * [Using Postman?](#postman)
 
@@ -42,10 +42,6 @@ cp .env.example .env
 # Install our app dependencies.
 composer i
 php artisan key:generate
-# Before running the next command:
-# Update your database details in .env
-php artisan migrate:status --path=database/migrations/V1
-php artisan migrate --path=database/migrations/V1 --seed
 ```
 
 #### Frontend Installation
@@ -59,8 +55,11 @@ yarn build
 ## Usage
 
 ```bash
-php artisan serve --port=8000
-# Website accessible at http://localhost:8000
+docker-compose up
+# Website accessible at http://localhost:80
+docker exec -it [app_container_id] sh
+> php artisan migrate:status --path=database/migrations/V1
+> php artisan migrate --path=database/migrations/V1 --seed
 ```
 
 ## API Documentation
