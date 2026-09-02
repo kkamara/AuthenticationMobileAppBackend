@@ -6,6 +6,17 @@ jobs:
   laravel:
     name: Tests Pipeline (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: "secret"
+          MYSQL_DATABASE: "auth_mobile_backend"
+          MYSQL_USER: "user"
+          MYSQL_PASSWORD: "secret"
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       fail-fast: false
       matrix:
@@ -17,12 +28,18 @@ jobs:
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, dom, fileinfo
+          extensions: mbstring, dom, fileinfo, mysql
           coverage: none
+      - name: Start MySQL service
+        run: sudo /etc/init.d/mysql start
       - name: Install Composer dependencies
         run: composer install -q --no-progress --prefer-dist --optimize-autoloader
       - name: Prepare environment
-        run: cp .env.example .env
+        run: |
+          cp .env.example .env
+          sed -i "s/3306/${{ job.services.mysql.ports['3306'] }}/g" .env
+          sed -i "s/DB_USERNAME=root/DB_USERNAME=user/g" .env
+          sed -i "s/DB_PASSWORD=/DB_PASSWORD=secret/g" .env
       - name: Clear config cache
         run: php artisan config:clear
       - name: Generate key
