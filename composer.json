@@ -8,7 +8,7 @@
         }
     ],
     "type": "project",
-    "description": "(02-Sep-2026) A Laravel 13.x auth API for www.github.com/kkamara/AuthenticationMobileApp .",
+    "description": "(02-Sep-2026) A Laravel 13.x Docker auth API for www.github.com/kkamara/AuthenticationMobileApp .",
     "keywords": [],
     "license": "BSD-3-Clause",
     "require": {
