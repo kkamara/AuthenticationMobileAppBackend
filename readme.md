@@ -31,6 +31,7 @@
 
 ## Installation
 
+* [Docker](https://www.docker.com/get-started)
 * [XAMPP: Apache, MariaDB (MySQL alternative), and PHP](https://www.apachefriends.org/)
 * If you find that the MariaDB XAMPP service fails to start (I get this on Windows) then install MySQL manually [here](https://dev.mysql.com/downloads/mysql/)
 * [https://laravel.com/docs](https://laravel.com/docs)
