@@ -1,3 +1,5 @@
+<img src="https://github.com/kkamara/useful/blob/main/ReactNativeMobileAppBoilerplate.png?raw=true" alt="ReactNativeMobileAppBoilerplate.png" width=""/>
+
 # Authentication Mobile App Backend [![API](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml)
 
 (02-Sep-2026) A Laravel 13.x auth API for www.github.com/kkamara/AuthenticationMobileApp .
