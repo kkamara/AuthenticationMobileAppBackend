@@ -40,6 +40,7 @@ jobs:
           sed -i "s/3306/${{ job.services.mysql.ports['3306'] }}/g" .env
           sed -i "s/DB_USERNAME=root/DB_USERNAME=user/g" .env
           sed -i "s/DB_PASSWORD=/DB_PASSWORD=secret/g" .env
+          sed -i "s/DB_HOST=mysql/DB_HOST=127.0.0.1/g" .env
       - name: Clear config cache
         run: php artisan config:clear
       - name: Generate key
