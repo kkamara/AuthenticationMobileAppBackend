@@ -2,7 +2,7 @@
 
 # Authentication Mobile App Backend [![API](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/AuthenticationMobileAppBackend/actions/workflows/build.yml)
 
-(02-Sep-2026) A Laravel 13.x Docker auth API for www.github.com/kkamara/AuthenticationMobileApp .
+(02-Sep-2026) A Laravel 13.x Docker auth API, with emails, for www.github.com/kkamara/AuthenticationMobileApp .
 
 * [Using Postman?](#postman)
 
