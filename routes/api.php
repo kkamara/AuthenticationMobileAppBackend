@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Mobile\V1\MobileController;
+use App\Http\Controllers\Mobile\V1\EmailController as MobileEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\UserController;
 use \App\Http\Controllers\API\HealthController;
@@ -12,6 +13,10 @@ Route::prefix("/mobile/v1")->group(function () {
         MobileController::class,
         "hello",
     ]);
+    Route::get("/email", [
+        MobileEmailController::class,
+        "sendUserRegistrationEmail",
+    ])->name("sendUserRegistrationEmail");
 });
 // Add third-party API routes
 Route::prefix("/v1/user")->group(function () {

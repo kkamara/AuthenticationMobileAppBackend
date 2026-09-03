@@ -18,6 +18,8 @@ services:
     mysql:
         image: mysql:8.0
         restart: unless-stopped
+        ports:
+            - '${DB_PORT:-3306}:3306'
         environment:
             MYSQL_DATABASE: ${DB_DATABASE:-auth_mobile_backend}
             MYSQL_USER: ${DB_USERNAME:-laravel}

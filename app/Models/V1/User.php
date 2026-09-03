@@ -58,4 +58,9 @@ class User extends Authenticatable
             config('app.url')."/storage/images/profile/".$this->avatar_name :
             config('app.url')."/storage/images/profile/default-avatar.webp";
     }
+
+    public function getNameAttribute(): string
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
 }
