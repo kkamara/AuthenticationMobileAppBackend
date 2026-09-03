@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\API\V1;
+namespace Tests\Feature\Mobile\V1;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
@@ -47,7 +47,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                "/api/v1/user/register", 
+                "/api/mobile/v1/user/register", 
                 [
                     "firstName" => $this->faker->unique()->firstName,
                     "lastName" => $this->faker->unique()->lastName,
@@ -72,7 +72,7 @@ class UserTest extends TestCase
     public function testRegisterUserInvalidData(): void
     {
         $response = $this->withHeaders($this->headers)
-            ->postJson("/api/v1/user/register");
+            ->postJson("/api/mobile/v1/user/register");
         
         $response->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertJsonStructure(["message"]);
@@ -84,7 +84,7 @@ class UserTest extends TestCase
         User::factory()->create(["email" => $email]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                "/api/v1/user/register", 
+                "/api/mobile/v1/user/register", 
                 [
                     "firstName" => $this->faker->unique()->firstName,
                     "lastName" => $this->faker->unique()->lastName,
@@ -107,7 +107,7 @@ class UserTest extends TestCase
         $user = User::factory()->create(["email" => $email]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                "/api/v1/user", 
+                "/api/mobile/v1/user", 
                 ["email" => $user->email, "password" => "secret"],
             );
 
@@ -131,7 +131,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
         User::factory()->create(["email" => $email]);
         $response = $this->withHeaders($this->headers)
-            ->postJson("/api/v1/user");
+            ->postJson("/api/mobile/v1/user");
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertJsonStructure(["message"]);
@@ -144,7 +144,7 @@ class UserTest extends TestCase
         ]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                "/api/v1/user", 
+                "/api/mobile/v1/user", 
                 ["email" => $user->email, "password" => "invalid_password"],
             );
 
@@ -160,7 +160,7 @@ class UserTest extends TestCase
         Sanctum::actingAs($user);
         
         $authResponse = $this->withHeaders($this->headers)
-            ->getJson("/api/v1/user/authorise");
+            ->getJson("/api/mobile/v1/user/authorise");
 
         $authResponse->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
@@ -177,7 +177,7 @@ class UserTest extends TestCase
     public function testAuthoriseUserAuthenticationError(): void
     {        
         $response = $this->withHeaders($this->headers)
-            ->getJson("/api/v1/user/authorise");
+            ->getJson("/api/mobile/v1/user/authorise");
 
         $response->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertJson(
@@ -194,7 +194,7 @@ class UserTest extends TestCase
         Sanctum::actingAs($user);
         
         $authResponse = $this->withHeaders($this->headers)
-            ->deleteJson("/api/v1/user");
+            ->deleteJson("/api/mobile/v1/user");
 
         $authResponse->assertStatus(Response::HTTP_OK)
             ->assertJson(
@@ -206,7 +206,7 @@ class UserTest extends TestCase
     public function testLogoutUserAuthenticationError(): void
     {        
         $response = $this->withHeaders($this->headers)
-            ->deleteJson("/api/v1/user");
+            ->deleteJson("/api/mobile/v1/user");
 
         $response->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertJson(
