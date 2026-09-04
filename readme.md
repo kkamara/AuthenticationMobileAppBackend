@@ -56,8 +56,12 @@ yarn build
 ## Usage
 
 ```bash
+# Website accessible at http://localhost:80 .
 docker-compose up -d
-# Website accessible at http://localhost:80
+# Run event listener that runs dispatched jobs
+# like send email verification.
+docker exec app php artisan queue:listen --tries=1
+# SH into container and run database commands.
 docker exec -it app sh
 > php artisan migrate:status --path=database/migrations/V1
 > php artisan migrate --path=database/migrations/V1 --seed
