@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Models\V1;
+namespace App\Models\V1\User;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\V1\User\Traits\User\Relationships;
+use App\Models\V1\User\Traits\User\TimeStampHandling;
+use App\Notifications\V1\QueueableVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Tappable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory, Notifiable;
+    use Relationships;
     use Tappable;
     use TimeStampHandling;
 
@@ -22,11 +26,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        "first_name",
-        "last_name",
-        "email",
-        "password",
-        "avatar_name",
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'avatar_name',
     ];
 
     /**
@@ -35,8 +39,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        "password",
-        "remember_token",
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -47,20 +51,25 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            "email_verified_at" => "datetime",
-            "password" => "hashed",
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
         ];
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new QueueableVerifyEmail);
     }
 
     public function getAvatarPath(): string
     {
         return $this->avatar_name ?
-            config('app.url')."/storage/images/profile/".$this->avatar_name :
-            config('app.url')."/storage/images/profile/default-avatar.webp";
+            config('app.url').'/storage/images/profile/'.$this->avatar_name :
+            config('app.url').'/storage/images/profile/default-avatar.webp';
     }
 
     public function getNameAttribute(): string
     {
-        return $this->first_name . " " . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 }

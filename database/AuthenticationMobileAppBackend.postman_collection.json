@@ -10,34 +10,6 @@
       "name": "Mobile API",
       "item": [
         {
-          "name": "Hello",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Time-Zone",
-                "value": "Europe/London",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{mobileAPI}}/hello",
-              "host": [
-                "{{mobileAPI}}"
-              ],
-              "path": [
-                "hello"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "API",
-      "item": [
-        {
           "name": "User",
           "item": [
             {
@@ -63,13 +35,11 @@
                     "header": [
                       {
                         "key": "Accept",
-                        "value": "application/json",
-                        "type": "text"
+                        "value": "application/json"
                       },
                       {
                         "key": "Time-Zone",
                         "value": "Europe/London",
-                        "type": "text",
                         "disabled": true
                       }
                     ],
@@ -83,9 +53,9 @@
                       }
                     },
                     "url": {
-                      "raw": "{{API}}/user/authorise",
+                      "raw": "{{mobileAPI}}/user/authorise",
                       "host": [
-                        "{{API}}"
+                        "{{mobileAPI}}"
                       ],
                       "path": [
                         "user",
@@ -177,19 +147,17 @@
                     "header": [
                       {
                         "key": "Accept",
-                        "value": "application/json",
-                        "type": "text"
+                        "value": "application/json"
                       },
                       {
                         "key": "Time-Zone",
-                        "value": "Europe/London",
-                        "type": "text"
+                        "value": "Europe/London"
                       }
                     ],
                     "url": {
-                      "raw": "{{API}}/user",
+                      "raw": "{{mobileAPI}}/user",
                       "host": [
-                        "{{API}}"
+                        "{{mobileAPI}}"
                       ],
                       "path": [
                         "user"
@@ -343,58 +311,6 @@
                       "body": "{\n    \"message\": \"Success\"\n}"
                     }
                   ]
-                },
-                {
-                  "name": "Update User",
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
-                        {
-                          "key": "token",
-                          "value": "{{token}}",
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Time-Zone",
-                        "value": "Europe/London",
-                        "type": "text"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"jane@doe.com\",\r\n    \"password\": \"secret\",\r\n    \"passwordConfirmation\": \"secret\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{web}}/user",
-                      "host": [
-                        "{{web}}"
-                      ],
-                      "path": [
-                        "user"
-                      ]
-                    }
-                  },
-                  "response": []
                 }
               ]
             },
@@ -405,23 +321,20 @@
                 "header": [
                   {
                     "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   },
                   {
                     "key": "Time-Zone",
-                    "value": "Europe/London",
-                    "type": "text"
+                    "value": "Europe/London"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Doe\",\n    \"email\": \"jane@doe.com\",\n    \"password\": \"secret\",\n    \"passwordConfirmation\": \"secret\"\n}",
+                  "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john@doe.com\",\n    \"password\": \"secret\",\n    \"passwordConfirmation\": \"secret\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -429,9 +342,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{API}}/user/register",
+                  "raw": "{{mobileAPI}}/user/register",
                   "host": [
-                    "{{API}}"
+                    "{{mobileAPI}}"
                   ],
                   "path": [
                     "user",
@@ -525,18 +438,15 @@
                 "header": [
                   {
                     "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   },
                   {
                     "key": "Time-Zone",
-                    "value": "Europe/London",
-                    "type": "text"
+                    "value": "Europe/London"
                   }
                 ],
                 "body": {
@@ -549,9 +459,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{API}}/user",
+                  "raw": "{{mobileAPI}}/user",
                   "host": [
-                    "{{API}}"
+                    "{{mobileAPI}}"
                   ],
                   "path": [
                     "user"
@@ -636,6 +546,34 @@
           ]
         },
         {
+          "name": "Hello",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Time-Zone",
+                "value": "Europe/London",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{mobileAPI}}/hello",
+              "host": [
+                "{{mobileAPI}}"
+              ],
+              "path": [
+                "hello"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API",
+      "item": [
+        {
           "name": "Health",
           "request": {
             "auth": {
@@ -691,267 +629,6 @@
               ],
               "path": [
                 "email"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Internal Web API",
-      "item": [
-        {
-          "name": "User",
-          "item": [
-            {
-              "name": "Bearer Token Restricted",
-              "item": [
-                {
-                  "name": "Authorise User",
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
-                        {
-                          "key": "token",
-                          "value": "{{token}}",
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json",
-                        "type": "text"
-                      },
-                      {
-                        "key": "Time-Zone",
-                        "value": "Europe/London",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{web}}/user/authorise",
-                      "host": [
-                        "{{web}}"
-                      ],
-                      "path": [
-                        "user",
-                        "authorise"
-                      ]
-                    }
-                  },
-                  "response": []
-                },
-                {
-                  "name": "Logout User",
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
-                        {
-                          "key": "token",
-                          "value": "{{token}}",
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json",
-                        "type": "text"
-                      },
-                      {
-                        "key": "Time-Zone",
-                        "value": "Europe/London",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{web}}/user",
-                      "host": [
-                        "{{web}}"
-                      ],
-                      "path": [
-                        "user"
-                      ]
-                    }
-                  },
-                  "response": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Login User",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Time-Zone",
-                "value": "Europe/London",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"jane@doe.com\",\r\n    \"password\": \"secret\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{web}}/user",
-              "host": [
-                "{{web}}"
-              ],
-              "path": [
-                "user"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Register User",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Time-Zone",
-                "value": "Europe/London",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"jane@doe.com\",\r\n    \"password\": \"secret\",\r\n    \"passwordConfirmation\": \"secret\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{web}}/user/register",
-              "host": [
-                "{{web}}"
-              ],
-              "path": [
-                "user",
-                "register"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Users",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Time-Zone",
-                "value": "Europe/London",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{web}}/users",
-              "host": [
-                "{{web}}"
-              ],
-              "path": [
-                "users"
-              ],
-              "query": [
-                {
-                  "key": "page",
-                  "value": "5",
-                  "disabled": true
-                }
               ]
             }
           },

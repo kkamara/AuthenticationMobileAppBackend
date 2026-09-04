@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
-use App\Models\V1\User;
+use App\Models\V1\User\User;
 
 class UserTest extends TestCase
 {

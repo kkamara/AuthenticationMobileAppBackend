@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use App\Models\V1\User;
+use App\Models\V1\User\User;
 use App\Http\Resources\V1\UserResource;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -57,6 +58,8 @@ class UserController extends Controller
             $user->save();
             $user->token = $user->createToken("token")->plainTextToken;
         });
+
+        event(new Registered($user));
      
         return response()->json([
             "user" => new UserResource($user),

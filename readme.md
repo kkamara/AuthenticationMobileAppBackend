@@ -56,9 +56,9 @@ yarn build
 ## Usage
 
 ```bash
-docker-compose up
+docker-compose up -d
 # Website accessible at http://localhost:80
-docker exec -it [app_container_id] sh
+docker exec -it app sh
 > php artisan migrate:status --path=database/migrations/V1
 > php artisan migrate --path=database/migrations/V1 --seed
 ```

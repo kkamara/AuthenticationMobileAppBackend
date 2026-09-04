@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\V1;
 
-use App\Models\V1\User;
+use App\Models\V1\User\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder as IlluminateSeeder;
 
@@ -17,9 +17,9 @@ class Seeder extends IlluminateSeeder
 
         User::factory()->count(30)->create();
         User::factory()->create([
-            "first_name" => "Jane",
-            "last_name" => "Doe",
-            "email" => "jane@doe.com",
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane@doe.com',
         ]);
     }
 }
