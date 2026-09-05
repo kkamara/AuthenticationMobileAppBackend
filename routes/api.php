@@ -14,6 +14,9 @@ Route::prefix("/mobile/v1")->group(function () {
     Route::prefix("/user")->group(function () {
         Route::post("/register", [UserController::class, "register"]);
         Route::post("/", [UserController::class, "login"]);
+        Route::post("/password/email", [UserController::class, "sendPasswordResetLink"])
+            ->middleware("throttle:6,1");
+        Route::post("/password/reset", [UserController::class, "resetPassword"]);
         Route::delete(
             "/",
             [UserController::class, "logout"],

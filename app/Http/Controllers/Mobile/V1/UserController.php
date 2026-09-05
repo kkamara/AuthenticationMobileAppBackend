@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Models\V1\User\User;
 use App\Http\Resources\V1\UserResource;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -136,5 +138,84 @@ class UserController extends Controller
         }
 
         return response()->json(["message" => "Success"]);
+    }
+
+    public function sendPasswordResetLink(Request $request): JsonResponse
+    {
+        $validation = Validator::make(
+            $request->only(["email"]),
+            ["email" => "required|email|max:255"],
+        );
+
+        if ($validation->fails()) {
+            return response()->json([
+                "message" => $validation->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $status = Password::sendResetLink([
+            "email" => filter_var(trim($request->input("email")), FILTER_SANITIZE_EMAIL),
+        ], function (User $user): string {
+            $code = (string) random_int(100000, 999999);
+            $table = config('auth.passwords.'.config('auth.defaults.passwords').'.table');
+
+            Password::broker()->deleteToken($user);
+            DB::table($table)->insert([
+                'email' => $user->getEmailForPasswordReset(),
+                'token' => Hash::make($code),
+                'created_at' => now(),
+            ]);
+            $user->sendPasswordResetNotification($code);
+
+            return Password::RESET_LINK_SENT;
+        });
+
+        if (Password::RESET_LINK_SENT !== $status) {
+            return response()->json([
+                "message" => __($status),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json([
+            "message" => __("V1/passwords.sent"),
+        ]);
+    }
+
+    public function resetPassword(Request $request): JsonResponse
+    {
+        $validation = Validator::make(
+            $request->only(["token", "email", "password", "passwordConfirmation"]),
+            [
+                "token" => "required|string",
+                "email" => "required|email|max:255",
+                "password" => "required|confirmed:passwordConfirmation|min:6|max:30",
+            ],
+        );
+
+        if ($validation->fails()) {
+            return response()->json([
+                "message" => $validation->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $status = Password::reset(
+            $request->only(["email", "password", "passwordConfirmation", "token"]),
+            function (User $user, string $password): void {
+                $user->forceFill([
+                    "password" => Hash::make($password),
+                    "remember_token" => null,
+                ])->save();
+            },
+        );
+
+        if (Password::PASSWORD_RESET !== $status) {
+            return response()->json([
+                "message" => __($status),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json([
+            "message" => __("V1/passwords.reset"),
+        ]);
     }
 }

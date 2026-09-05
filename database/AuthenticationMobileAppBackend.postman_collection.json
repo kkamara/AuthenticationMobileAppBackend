@@ -102,6 +102,17 @@
                   "response": []
                 },
                 {
+                  "name": "New Request",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "response": []
+                },
+                {
                   "name": "Resend Email Verification Notice",
                   "request": {
                     "auth": {
@@ -209,6 +220,65 @@
                   ],
                   "path": [
                     "user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Send Password Reset Email",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"jane@doe.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{mobileAPI}}/user/password/email",
+                  "host": [
+                    "{{mobileAPI}}"
+                  ],
+                  "path": [
+                    "user",
+                    "password",
+                    "email"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Reset Password From Emailed Token",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"token\": \"877378\",\r\n    \"email\": \"jane@doe.com\",\r\n    \"password\": \"secret\",\r\n    \"passwordConfirmation\": \"secret\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{mobileAPI}}/user/password/reset",
+                  "host": [
+                    "{{mobileAPI}}"
+                  ],
+                  "path": [
+                    "user",
+                    "password",
+                    "reset"
                   ]
                 }
               },

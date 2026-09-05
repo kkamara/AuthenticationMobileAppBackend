@@ -4,6 +4,7 @@ namespace App\Models\V1\User;
 
 use App\Models\V1\User\Traits\User\Relationships;
 use App\Models\V1\User\Traits\User\TimeStampHandling;
+use App\Notifications\V1\QueueableResetPassword;
 use App\Notifications\V1\QueueableVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,11 +12,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Tappable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, CanResetPasswordContract
 {
     use HasApiTokens;
     use HasFactory, Notifiable;
+    use CanResetPassword;
     use Relationships;
     use Tappable;
     use TimeStampHandling;
@@ -59,6 +63,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new QueueableVerifyEmail);
+    }
+
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token): void
+    {
+        $this->notify(new QueueableResetPassword($token));
     }
 
     public function getAvatarPath(): string
